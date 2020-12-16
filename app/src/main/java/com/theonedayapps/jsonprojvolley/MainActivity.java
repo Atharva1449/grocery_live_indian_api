@@ -26,12 +26,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET,URL, null,new Response.Listener<JSONObject>(){
+        final RequestQueue requestQueue= Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,URL, null,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.d("abc","the response is"+response.getString("records"));
+                    JSONArray jsonArray=response.getJSONArray("records");
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject obj=jsonArray.getJSONObject(i);
+
+                        String state=obj.getString("state");
+                        String district=obj.getString("district");
+                        String market=obj.getString("market");
+
+
+                                Log.d("abc"," State: "+state+" District: "+district+" Market: "+market);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -42,6 +53,6 @@ public class MainActivity extends AppCompatActivity {
 VolleyLog.d("Error",error.getMessage());
             }
         });
-requestQueue.add(jsonArrayRequest);
+requestQueue.add(jsonObjectRequest);
     }
 }
