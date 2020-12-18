@@ -1,6 +1,7 @@
 package com.theonedayapps.jsonprojvolley;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
                         String state=obj.getString("state");
                         String district=obj.getString("district");
                         String market=obj.getString("market");
-
+                        String commodity=obj.getString("commodity");
+                        String variety=obj.getString("variety");
+                        String arrivaldate=obj.getString("arrival_date");
+                        String minprice=obj.getString("min_price");
+                        String maxprice=obj.getString("max_price");
+                        String modalprice=obj.getString("modal_price");
+fun(state,district,market,commodity,variety,arrivaldate,minprice,maxprice,modalprice);
 
                                 Log.d("abc"," State: "+state+" District: "+district+" Market: "+market);
                     }
@@ -50,9 +57,19 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-VolleyLog.d("Error",error.getMessage());
+VolleyLog.d("#############################################Error",error.getMessage());
             }
         });
 requestQueue.add(jsonObjectRequest);
     }
+
+    void fun(String state1, String district1, String market1,
+             String commodity1, String variety1, String arrivaldate1,
+             String minprice1, String maxprice1, String modalprice1){
+        User user=new User(state1,district1,market1,commodity1,variety1,arrivaldate1,minprice1,maxprice1,modalprice1);
+        MyDatabase myDatabase= Room.databaseBuilder(this,MyDatabase.class,"userDb").allowMainThreadQueries().build();
+        myDatabase.mydao().addUser(user);
+    }
+
+
 }
