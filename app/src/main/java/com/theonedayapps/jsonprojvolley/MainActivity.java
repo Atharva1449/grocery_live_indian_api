@@ -81,7 +81,10 @@ void fun2()
 {
     List<User> userdata=myDatabase.mydao().getuser();
     for(int i=0;i<userdata.size();i++){
-        text1.append("State"+userdata.get(i).getState()+"\n District: "+userdata.get(i).getDistrict()+"\n Market: "+userdata.get(i).getMarket()+"\n\n");
+        text1.append("State "+userdata.get(i).getState()+"\n District: "
+                +userdata.get(i).getDistrict()+"\n Market:   "+userdata.get(i).getMarket()+
+                "\n Commodity:  "+userdata.get(i).getCommodity()+"\n Variety:   "+userdata.get(i).getVariety()+
+                "\n Date:   "+userdata.get(i).getArrivaldate()+"\n Price:   "+userdata.get(i).getModalprice()+"\n\n");
     }
 }
 
