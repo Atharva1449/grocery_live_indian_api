@@ -102,7 +102,7 @@ void fun2()
     void fun3()
     {
 Filter_activity obj=new Filter_activity();
-        List<User> userdata=myDatabase.mydao().getfiltersearch(obj.getA());
+        List<User> userdata=myDatabase.mydao().getfiltersearch(obj.getA(),obj.getB(),obj.getC());
 
         for(int i=0;i<userdata.size();i++){
             text1.append("##################State "+userdata.get(i).getState()+"\n District: "
