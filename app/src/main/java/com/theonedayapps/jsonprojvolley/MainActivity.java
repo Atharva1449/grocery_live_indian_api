@@ -79,6 +79,11 @@ VolleyLog.d("#############################################Error",error.getMessag
             }
         });
 requestQueue.add(jsonObjectRequest);
+Filter_activity obj=new Filter_activity();
+if(obj.send!=1)
+{
+fun2();}
+else
 fun3();
     }
 
@@ -93,7 +98,7 @@ void fun2()
 {
     List<User> userdata=myDatabase.mydao().getuser();
     for(int i=0;i<userdata.size();i++){
-        text1.append("State "+userdata.get(i).getState()+"\n District: "
+        text1.append("### "+userdata.get(i).getState()+"###\n District: "
                 +userdata.get(i).getDistrict()+"\n Market:   "+userdata.get(i).getMarket()+
                 "\n Commodity:  "+userdata.get(i).getCommodity()+"\n Variety:   "+userdata.get(i).getVariety()+
                 "\n Date:   "+userdata.get(i).getArrivaldate()+"\n Price:   "+userdata.get(i).getModalprice()+"\n\n");
@@ -105,7 +110,7 @@ Filter_activity obj=new Filter_activity();
         List<User> userdata=myDatabase.mydao().getfiltersearch(obj.getA(),obj.getB(),obj.getC());
 
         for(int i=0;i<userdata.size();i++){
-            text1.append("##################State "+userdata.get(i).getState()+"\n District: "
+            text1.append("###"+userdata.get(i).getState()+"### \n District: "
                     +userdata.get(i).getDistrict()+"\n Market:   "+userdata.get(i).getMarket()+
                     "\n Commodity:  "+userdata.get(i).getCommodity()+"\n Variety:   "+userdata.get(i).getVariety()+
                     "\n Date:   "+userdata.get(i).getArrivaldate()+"\n Price:   "+userdata.get(i).getModalprice()+"\n\n");
