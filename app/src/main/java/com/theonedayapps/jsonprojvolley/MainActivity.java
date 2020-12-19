@@ -3,8 +3,11 @@ package com.theonedayapps.jsonprojvolley;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -25,12 +28,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     MyDatabase myDatabase;
    TextView text1;
+   Button buttonfilter;
     private final static String URL="https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b&format=json&offset=0&limit=10";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 text1=findViewById(R.id.text);
+buttonfilter=findViewById(R.id.filtersbutton);
+buttonfilter.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent=new Intent(MainActivity.this,Filter_activity.class);
+        startActivity(intent);
+    }
+});
         myDatabase= Room.databaseBuilder(this,MyDatabase.class,"userDb").allowMainThreadQueries().build();
 
         final RequestQueue requestQueue= Volley.newRequestQueue(this);
@@ -67,7 +79,7 @@ VolleyLog.d("#############################################Error",error.getMessag
             }
         });
 requestQueue.add(jsonObjectRequest);
-fun2();
+fun3();
     }
 
     void fun(String state1, String district1, String market1,
@@ -87,5 +99,16 @@ void fun2()
                 "\n Date:   "+userdata.get(i).getArrivaldate()+"\n Price:   "+userdata.get(i).getModalprice()+"\n\n");
     }
 }
+    void fun3()
+    {
+Filter_activity obj=new Filter_activity();
+        List<User> userdata=myDatabase.mydao().getfiltersearch(obj.getA());
 
+        for(int i=0;i<userdata.size();i++){
+            text1.append("##################State "+userdata.get(i).getState()+"\n District: "
+                    +userdata.get(i).getDistrict()+"\n Market:   "+userdata.get(i).getMarket()+
+                    "\n Commodity:  "+userdata.get(i).getCommodity()+"\n Variety:   "+userdata.get(i).getVariety()+
+                    "\n Date:   "+userdata.get(i).getArrivaldate()+"\n Price:   "+userdata.get(i).getModalprice()+"\n\n");
+        }
+    }
 }
